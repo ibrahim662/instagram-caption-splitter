@@ -1,9 +1,4 @@
-function updateTextLength() {
-    const inputText = document.getElementById('inputText').value;
-    document.getElementById('textLength').innerText = `عدد الأحرف: ${inputText.length}`;
-  }
-  
-  function splitText() {
+function splitText() {
     const inputText = document.getElementById('inputText').value;
     const maxLength = 2200;
     const separator = '.\n\n';
@@ -13,7 +8,7 @@ function updateTextLength() {
       return;
     }
   
-    updateTextLength(); // Update one more time to ensure the accurate length is displayed
+    updateTextLength(); 
   
     let result = '';
     let remainingText = inputText.replace(/\n/g, '<br>');
@@ -27,19 +22,55 @@ function updateTextLength() {
         chunk += separator;
       }
   
-      const lastSpaceIndex = chunk.lastIndexOf(' ');
-      if (lastSpaceIndex !== -1) {
-        chunk = chunk.substring(0, lastSpaceIndex);
-        remainingText = remainingText.substring(lastSpaceIndex + 1);
+      if (chunk.length < maxLength) {
+        // If the remaining text is shorter than maxLength, use it entirely
+        remainingText = '';
       } else {
-        remainingText = remainingText.substring(chunk.length);
+        const lastSpaceIndex = chunk.lastIndexOf(' ');
+        if (lastSpaceIndex !== -1) {
+          chunk = chunk.substring(0, lastSpaceIndex);
+          remainingText = remainingText.substring(lastSpaceIndex + 1);
+        } else {
+          remainingText = remainingText.substring(chunk.length);
+        }
       }
   
-      const chunkLength = chunk.length - separator.length; 
-      result += `<h2 class="paragraph">الفقرة ${paragraphNumber}</h2>${chunk}<div class="length">عدد الأحرف: ${chunkLength}</div>`;
+      const chunkLength = chunk.replace(/<br>/g, '\n').length - separator.length;
+      result += `<div class="paragraph"><h2>الفقرة ${paragraphNumber}</h2>${chunk}<div class="length">عدد الأحرف: ${chunkLength}</div><button class="copy-btn" onclick="copyToClipboard(this)">نسخ</button></div>`;
       paragraphNumber++;
     }
   
     document.getElementById('result').innerHTML = result;
+  }
+  
+  
+  function copyToClipboard(button) {
+    const paragraph = button.parentNode;
+    const textNodes = Array.from(paragraph.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.nodeValue)
+      .join('');
+  
+    const tempTextarea = document.createElement('textarea');
+    tempTextarea.value = textNodes;
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+  
+    try {
+      const successful = document.execCommand('copy');
+      const message = successful ? 'راني نسختلك.. انشر برك' : 'شيت.. مشكلة فالنسخ';
+      alert(message);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    } finally {
+      document.body.removeChild(tempTextarea);
+    }
+  }
+  
+  
+  
+  function updateTextLength() {
+    const inputText = document.getElementById('inputText').value;
+    document.getElementById('textLength').innerText = `عدد الأحرف: ${inputText.length}`;
   }
   
