@@ -16,7 +16,7 @@ function updateTextLength() {
     updateTextLength(); // Update one more time to ensure the accurate length is displayed
   
     let result = '';
-    let remainingText = inputText.replace(/\n/g, '<br>'); // Replace line breaks with <br> tags
+    let remainingText = inputText.replace(/\n/g, '<br>');
     let paragraphNumber = 1;
   
     while (remainingText.length > 0) {
@@ -35,8 +35,8 @@ function updateTextLength() {
         remainingText = remainingText.substring(chunk.length);
       }
   
-      const chunkLength = chunk.length - separator.length; // Exclude the separator length
-      result += `<div class="paragraph">الفقرة ${paragraphNumber}</div>${chunk}<div class="length">عدد الأحرف: ${chunkLength}</div>`;
+      const chunkLength = chunk.length - separator.length; 
+      result += `<h2 class="paragraph">الفقرة ${paragraphNumber}</h2>${chunk}<div class="length">عدد الأحرف: ${chunkLength}</div>`;
       paragraphNumber++;
     }
   

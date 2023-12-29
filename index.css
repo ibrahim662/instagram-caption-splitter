@@ -1,0 +1,44 @@
+body {
+  padding-inline: 20px;  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 40px auto;
+  direction: rtl;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+h1{
+  text-align: left;
+}
+textarea{
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+
+
+
+
+#result {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.paragraph {
+  color: #3498db;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.length {
+  color: #27ae60;
+  font-size: 14px;
+}
