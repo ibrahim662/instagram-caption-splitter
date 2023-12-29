@@ -43,16 +43,13 @@ function splitText() {
     document.getElementById('result').innerHTML = result;
   }
   
-  
+
   function copyToClipboard(button) {
-    const paragraph = button.parentNode;
-    const textNodes = Array.from(paragraph.childNodes)
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.nodeValue)
-      .join('');
+    const textarea = document.getElementById('inputText');
+    const textToCopy = textarea.value;
   
     const tempTextarea = document.createElement('textarea');
-    tempTextarea.value = textNodes;
+    tempTextarea.value = textToCopy;
     document.body.appendChild(tempTextarea);
     tempTextarea.select();
   
@@ -66,6 +63,7 @@ function splitText() {
       document.body.removeChild(tempTextarea);
     }
   }
+  
   
   
   
